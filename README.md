@@ -9,9 +9,9 @@
 
 # Manual Tecnico
 
-##Proyecto EDD "Go Drive"  Fase:1
+## Proyecto EDD "Go Drive"  Fase:1
 
-###Resumen
+### Resumen
 El sistema debe tener un funcionamiento similar a Google Drive con la característica que nos da el enunciado,  además de otras características propias de la aplicación. 
 
 Estructuras a utilizar:
@@ -20,9 +20,9 @@ Estructuras a utilizar:
 - Pila: Bitácora de acciones del administrador.
 - Cola: Cola de estudiantes para creación de usuario.
 
-##Descripcion de los paquetes
+## Descripcion de los paquetes
 a continuacion se describe los diferentes paquetes y sus funciones mas importantes.
-###paquete: main
+### paquete: main
 
 |  Función | Descripción  |
 | :------------: | :------------: |
@@ -30,7 +30,7 @@ a continuacion se describe los diferentes paquetes y sus funciones mas important
 |   administrador | Despliega el menu de administrador en el cual podemos realizar las acciones de administrador |
 |   formato hora | Nos devuelve el dia/mes/año y hora actual  |
 
-###paquete: cola
+### paquete: cola
 
 | Función  |  Descripción |
 | :------------: | :------------: |
@@ -38,7 +38,7 @@ a continuacion se describe los diferentes paquetes y sus funciones mas important
 | Desencolar | Eliminamos el nodo que se encuetra en al cabeza de la cola luego de ser aceptado o rechazado, y retorna el nodo en caso de ser aceptado para ser agregado a la lista doble.|
 | Graph | Crea un archivo .dot y .png de los estudiantes que se encuntran en la cola en ese momento. |
 
-###paquete: pila
+### paquete: pila
 
 | Función  |  Descripción |
 | :------------: | :------------: |
@@ -46,7 +46,7 @@ a continuacion se describe los diferentes paquetes y sus funciones mas important
 |  Graph |   Crea un archivo .dot y .png de las acciones del administrador  |
 |  Pila_Estudiantes |  Devuelve la pila de los estudiantes cuando iniciaron sesión |
 
-###paquete: doble
+### paquete: doble
 
 | Función  |  Descripción |
 | :------------: | :------------: |
