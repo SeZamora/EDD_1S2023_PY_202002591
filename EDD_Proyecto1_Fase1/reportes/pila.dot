@@ -1,0 +1,5 @@
+digraph pila{
+	rankdir="LR";
+	node[shape = record]
+	nodo0 [label="	|Se Rechazo estuadiante\n01/03/2023 22:04:52	|Se Rechazo estuadiante\n01/03/2023 22:04:51	|Se acepto estuadiante\n01/03/2023 22:04:50	|Se acepto estuadiante\n01/03/2023 22:04:49	|Se acepto estuadiante\n01/03/2023 22:04:48	|Se acepto estuadiante\n01/03/2023 22:04:47	|Se acepto estuadiante\n01/03/2023 22:04:47	|Se acepto estuadiante\n01/03/2023 22:04:01	"];
+}

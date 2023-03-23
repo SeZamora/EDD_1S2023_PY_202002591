@@ -1,0 +1,25 @@
+digraph lista{
+	rankdir="LR";
+	edge [arrowhead=vee];
+	node [shape=record,height=0.6];
+	nodo0[label="201403877\nEbany Larios"];
+	nodo1[label="201700918\nCristian Suy"];
+	nodo2[label="201780044\nLeonardo Martinez"];
+	pila2 [label="|Ingreso Usuario\n01/03/2023 22:06:23"];
+	nodo2 -> pila2
+	nodo3[label="202000277\nDiana Berducido"];
+	nodo4[label="202001053\nKevin Hernandez"];
+	nodo5[label="202002591\nJorge ebastian"];
+	pila5 [label="|Ingreso Usuario\n01/03/2023 22:05:55"];
+	nodo5 -> pila5
+	nodo0-> nodo1;
+	nodo1-> nodo0;
+	nodo1-> nodo2;
+	nodo2-> nodo1;
+	nodo2-> nodo3;
+	nodo3-> nodo2;
+	nodo3-> nodo4;
+	nodo4-> nodo3;
+	nodo4-> nodo5;
+	nodo5-> nodo4;
+}
