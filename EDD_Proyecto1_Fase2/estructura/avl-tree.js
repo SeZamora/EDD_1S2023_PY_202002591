@@ -1,24 +1,19 @@
-//--------------------------------------------------------------------------
-//                      CLASE NODO
-//--------------------------------------------------------------------------
+
+
 class AvlNode{
-    constructor(item){
+    constructor(item, arbol){
         this.item = item;
         this.left = null;
         this.right = null;
         this.height = 0;
+        this.arbolnario = arbol;
     }
 }
 
-//--------------------------------------------------------------------------
-//                   VARIABLES GLOBALES
-//--------------------------------------------------------------------------
+
 let = nodes = "";
 let = connections = "";
 
-//--------------------------------------------------------------------------
-//                   CLASE ARBOL AVL
-//--------------------------------------------------------------------------
 class AvlTree{
     constructor(){
         this.root = null;
@@ -31,16 +26,16 @@ class AvlTree{
     getHeight(node){
         return node === null ? -1 : node.height;
     }
+    
     getMaxHeight(leftNode, rightNode){
         return leftNode.height > rightNode.height ? leftNode.height : rightNode.height;
     }
 
-    //--------------------------------------------------------------------------
-    //                  METODO DE INSERCIÓN
-    //--------------------------------------------------------------------------
     #insertRecursive(item, node){
         if(node == null){
-            node = new AvlNode(item);
+            let arbolnario = new NarioTree();
+            node = new AvlNode(item, arbolnario);
+            
         }else if(item.carnet < node.item.carnet){
             node.left = this.#insertRecursive(item, node.left);
             if(this.getHeight(node.left) - this.getHeight(node.right) == 2){
@@ -66,9 +61,6 @@ class AvlTree{
         return node;
     }
 
-    //--------------------------------------------------------------------------
-    //                   ROTACIONES
-    //--------------------------------------------------------------------------
     #rotateRight(node1){
         node2 = node1.right;
         node1.right = node2.left;
@@ -77,6 +69,7 @@ class AvlTree{
         node2.height = this.getMaxHeight(this.getHeight(node2.right), node1.height) + 1;
         return node2;
     }
+    
     #rotateLeft(node2){
         node1 = node2.left;
         node2.left = node1.right;
@@ -94,14 +87,11 @@ class AvlTree{
         return this.#rotateRight(node);
     }
 
-    //--------------------------------------------------------------------------
-    //                  REPORTE DEL ARBOL
-    //--------------------------------------------------------------------------
     treeGraph(){       
         nodes = "";
         connections = "";
         this.#treeGraphRecursive(this.root);
-        console.log(nodes,connections);
+        console.log("hola", nodes,connections);
         return nodes + connections;
     }
     #treeGraphRecursive(current){
@@ -109,16 +99,13 @@ class AvlTree{
             this.#treeGraphRecursive(current.left);
             connections += `S_${current.item.carnet} -> S_${current.left.item.carnet};\n`;
         }
-        nodes += `S_${current.item.carnet}[label="${current.item.nombre}"];`
+        nodes += `S_${current.item.carnet}[label="${current.item.carnet+ "\\n"+ current.item.nombre + "\\n Altura: "+current.item.height}"];`
         if(current.right != null){
             this.#treeGraphRecursive(current.right);
             connections += `S_${current.item.carnet} -> S_${current.right.item.carnet};\n`;
         }
     }
     
-    //--------------------------------------------------------------------------
-    //                  RECORRIDO IN ORDER
-    //--------------------------------------------------------------------------
     inOrder(){
         let html = this.#inOrderRecursive(this.root);
         return html;
@@ -140,9 +127,7 @@ class AvlTree{
         }
         return row;
     }
-    //--------------------------------------------------------------------------
-    //                  RECORRIDO PRE ORDER
-    //--------------------------------------------------------------------------
+
     preOrder(){
         let html = this.#preOrderRecursive(this.root);
         return html;
@@ -165,9 +150,6 @@ class AvlTree{
         return row;
     }
 
-    //--------------------------------------------------------------------------
-    //                  RECORRIDO POST ORDER
-    //--------------------------------------------------------------------------
     postOrder(){
         let html = this.#postOrderRecursive(this.root);
         return html;
@@ -190,5 +172,19 @@ class AvlTree{
         return row;
     }
 
+    search(carnet, password){
+        let current = this.root;
+        while(current != null){
+            if(current.item.carnet == carnet && current.item.password == password){
+                return current;
+            }else if(carnet < current.item.carnet){
+                current = current.left;
+            }else{
+                current = current.right;
+            }
+        }
+        return null;
+    }
+    
 
 }
