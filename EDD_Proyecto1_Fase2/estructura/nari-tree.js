@@ -53,25 +53,6 @@ class NarioTree{
         }
     }
 
-    removeFolder(folderName) {
-        let folderNode = this.getFolder(folderName);
-        if (folderNode === null) {
-            console.log(`No se encontró el directorio ${folderName}`);
-            return;
-        }
-        let parentNode = this.getParentFolder(folderName);
-        if (parentNode === null) {
-            console.log(`No se puede eliminar la raíz del árbol`);
-            return;
-        }
-        parentNode.children = parentNode.children.filter(node => node.folderName !== folderName);
-    }
-
-    getParentFolder(path) {
-        let parentPath = path.substring(0, path.lastIndexOf('/'));
-        return this.getFolder(parentPath);
-    }
-
     graph(){
         let nodes = "";
         let connections = "";
@@ -130,4 +111,19 @@ class NarioTree{
         })
         return code;
     }
+
+    eliminarDirectorio(path) {
+        let node = this.getFolder(path);
+        if (!node) {
+            console.log("El directorio no existe.");
+            return;
+        }
+        if (node === this.root) {
+            console.log("No puedes eliminar la raíz del árbol.");
+            return;
+        }
+        let padre = this.getFolder(path.substring(0, path.lastIndexOf("/")));
+        padre.children = padre.children.filter(child => child !== node);
+    }
+    
 }

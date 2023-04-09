@@ -165,6 +165,13 @@ function crearCarpeta(e){
 }
 
 function entrarCarpeta(folderName){
+    let carnetInt = localStorage.getItem("carnet");
+    let pass = localStorage.getItem("pass");
+    let temp = localStorage.getItem("arbolavl");
+    avlTree.root = JSON.parse(temp).root;
+    const resulta = avlTree.search(carnetInt, pass);
+    nario.root = resulta.arbolnario.root;
+    
     let path = $('#path').val();
     let curretPath = path == '/'? path + folderName : path + "/"+ folderName;
     console.log(curretPath)
@@ -200,6 +207,14 @@ const toBase64 = file => new Promise((resolve, reject) => {
 
 const subirArchivo =  async (e) => {
     e.preventDefault();
+
+    let carnetInt = localStorage.getItem("carnet");
+    let pass = localStorage.getItem("pass");
+    let temp = localStorage.getItem("arbolavl");
+    avlTree.root = JSON.parse(temp).root;
+    const resulta = avlTree.search(carnetInt, pass);
+    nario.root = resulta.arbolnario.root;
+
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
     // console.log(form.file.type);
@@ -232,11 +247,16 @@ const subirArchivo =  async (e) => {
     }
     alert('Archivo Subido!')
 
+    resulta.arbolnario.root = nario.root;
+    localStorage.setItem("arbolavl", JSON.stringify(avlTree));
+
 }
 
+
+
 function deleteCarpeta(){
-    var nombre = prompt("Que carpeta quiere elimnar:");
-    console.log(nombre);
+    var direccion = prompt("Que direccion:");
+    console.log(direccion);
 
     let carnetInt = localStorage.getItem("carnet");
     let pass = localStorage.getItem("pass");
@@ -245,11 +265,13 @@ function deleteCarpeta(){
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
 
-    nario.removeFolder(nombre);
+    nario.eliminarDirectorio(direccion);
 
     resulta.arbolnario.root = nario.root;
-    localStorage.setItem("arbolavl", JSON.stringify(avlTree));
 
     $('#path').val("/");
     $('#carpetas').html(nario.getHTML("/"))
+
+    localStorage.setItem("arbolavl", JSON.stringify(avlTree));
+
 }
