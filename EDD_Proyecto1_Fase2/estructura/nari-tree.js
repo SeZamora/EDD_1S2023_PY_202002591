@@ -137,5 +137,16 @@ class NarioTree{
         let padre = this.getFolder(path.substring(0, path.lastIndexOf("/")));
         padre.children = padre.children.filter(child => child !== node);
     }
+
+    navigate(path) {
+    // Obtener el nodo correspondiente a la ruta
+    const node = this.getFolder(path);
+    if (!node) {
+      console.log("La ruta no existe.");
+      return;
+    }
+
+    
+  }
     
 }

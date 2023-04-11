@@ -172,6 +172,20 @@ function crearCarpeta(e){
     
 }
 
+function cambiarDirectorio(){
+    var direccion = prompt("Que direccion:");
+    console.log(direccion);
+
+    let carnetInt = localStorage.getItem("carnet");
+    let pass = localStorage.getItem("pass");
+    let temp = localStorage.getItem("arbolavl");
+    avlTree.root = JSON.parse(temp).root;
+    const resulta = avlTree.search(carnetInt, pass);
+    nario.root = resulta.arbolnario.root;
+
+    $('#path').val(direccion);
+    $('#carpetas').html(nario.getHTML(direccion))
+}
 function entrarCarpeta(folderName){
     let carnetInt = localStorage.getItem("carnet");
     let pass = localStorage.getItem("pass");

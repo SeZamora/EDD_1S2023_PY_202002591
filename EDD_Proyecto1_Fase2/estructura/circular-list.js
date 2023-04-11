@@ -32,26 +32,26 @@ class ListaCircular{
       let currentNode = this.root.prev;
       while (currentNode !== this.root) {
         console.log(currentNode.nombre);
-        graph += `  "${currentNode.nombre}" [label="${currentNode.accion} \\n ${currentNode.nombre} \\n ${currentNode.fecha} \\n ${currentNode.hora}"] \n `;
+        graph += `  "${currentNode.hora}" [label="${currentNode.accion} \\n ${currentNode.nombre} \\n ${currentNode.fecha} \\n ${currentNode.hora}"] \n `;
         currentNode = currentNode.prev;
         if (currentNode.nombre == undefined){
           break;
         }
       }
-      graph += `  "${this.root.nombre}" [label="${this.root.nombre} "] \n`;
+      
 
       let currentNode2 = this.root.prev;
       while (currentNode2 !== this.root) {
-        graph += `  ${currentNode2.nombre} -> ${currentNode2.prev.nombre}\n`;
+        graph += ` "${currentNode2.hora}" -> "${currentNode2.prev.hora}"\n`;
         currentNode2 = currentNode2.prev;
         if (currentNode2.nombre == undefined){
           break;
         }
       }
-      graph += `  ${this.root.nombre} -> ${this.root.prev.nombre}\n`;
-      graph += `  undefined -> root\n`
+      graph += `  ${this.root.nombre} -> "${this.root.prev.hora}"\n`;
+      graph += `  "undefined" -> root\n`
       console.log(graph);
-      return 'node[shape="record"];\n' + graph;
+      return 'node[shape=square];\n rankdir=LR;' + graph;
     }
       
   }
