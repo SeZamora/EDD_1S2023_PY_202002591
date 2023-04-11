@@ -1,8 +1,9 @@
 
 let avlTree = new AvlTree();
 let nario = new NarioTree();
+let circulo = new ListaCircular();
 
-function loadStudentsForm(e) {
+function cargarEstudiante(e) {
     e.preventDefault();
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
@@ -29,7 +30,7 @@ function loadStudentsForm(e) {
             for(let i = 0; i < studentsArray.length; i++){
                 avlTree.insert(studentsArray[i]);
             }
-            localStorage.setItem("arbolavl", JSON.stringify(avlTree));
+            localStorage.setItem("arbolavl", JSON.stringify(JSON.decycle(avlTree)));
             alert('Alumnos cargados con éxito!')
         }
     }catch(error){
@@ -152,15 +153,22 @@ function crearCarpeta(e){
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
-    
+    circulo.root = resulta.listacircular.root;
+
     let folderName =  $('#folderName').val();
     let path =  $('#path').val();
     nario.insert(folderName, path);
     alert("Todo bien!");
     $('#carpetas').html(nario.getHTML(path))
 
+    const fecha = obtenerFecha();
+    const hora = obtenerHora();
+    circulo.agregar("Crear Carpeta",folderName,fecha, hora );
+
     resulta.arbolnario.root = nario.root;
-    localStorage.setItem("arbolavl", JSON.stringify(avlTree));
+    resulta.listacircular.root = circulo.root;
+
+    localStorage.setItem("arbolavl", JSON.stringify(JSON.decycle(avlTree)));
     
 }
 
@@ -184,6 +192,13 @@ function retornarInicio(){
     $('#carpetas').html(nario.getHTML("/"))
 }
 
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
 
 function showTreeGraph(){
     let carnetInt = localStorage.getItem("carnet");
@@ -197,15 +212,23 @@ function showTreeGraph(){
     let body = `digraph G { ${nario.graph()} }`
     $("#graph").attr("src", url + body);
 }
+function ShowBitacora(){
+    let carnetInt = localStorage.getItem("carnet");
+    let pass = localStorage.getItem("pass");
+    let temp = localStorage.getItem("arbolavl");
+    avlTree.root = JSON.parse(temp).root;
+    const resulta = avlTree.search(carnetInt, pass);
+    circulo.root = resulta.listacircular.root;
+    console.log(circulo.root);
+    let url = 'https://quickchart.io/graphviz?graph=';
+    let body = `digraph G { ${circulo.graph()} }`
+    $("#bitacora").attr("src", url + body);
+}
 
-const toBase64 = file => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-});
+let nombreArchivo = ""
+let base64String = ""
 
-const subirArchivo =  async (e) => {
+const subirArchivo =  async (e) =>  {
     e.preventDefault();
 
     let carnetInt = localStorage.getItem("carnet");
@@ -215,18 +238,21 @@ const subirArchivo =  async (e) => {
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
 
+
+
     const formData = new FormData(e.target);
     const form = Object.fromEntries(formData);
-    // console.log(form.file.type);
+    console.log(form.file.type);
     let path = $('#path').val();
     if(form.file.type === 'text/plain'){
         // ARCHIVO DE TEXTO
         let fr = new FileReader();
         fr.readAsText(form.file);
+        console.log(form.file.name)
         fr.onload = () => { 
             // CARGAR ARCHIVO A LA MATRIZ
             nario.getFolder(path).files.push({
-                name: form.fileName, 
+                name: form.file.name, 
                 content: fr.result, 
                 type: form.file.type
             })
@@ -236,7 +262,7 @@ const subirArchivo =  async (e) => {
         // IMÁGENES O PDF 
         let parseBase64 = await toBase64(form.file);
         nario.getFolder(path).files.push({
-            name: form.fileName, 
+            name: form.file.name, 
             content: parseBase64, 
             type: form.file.type
         })
@@ -246,10 +272,12 @@ const subirArchivo =  async (e) => {
         // console.log(await toBase64(form.file));
     }
     alert('Archivo Subido!')
+    
+
+
 
     resulta.arbolnario.root = nario.root;
-    localStorage.setItem("arbolavl", JSON.stringify(avlTree));
-
+    localStorage.setItem("arbolavl", JSON.stringify(JSON.decycle(avlTree)));
 }
 
 
@@ -264,14 +292,38 @@ function deleteCarpeta(){
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
+    circulo.root = resulta.listacircular.root;
 
     nario.eliminarDirectorio(direccion);
 
+    const fecha = obtenerFecha();
+    const hora = obtenerHora();
+    circulo.agregar("Eliminar Carpeta",direccion,fecha, hora );
+
+
     resulta.arbolnario.root = nario.root;
+    resulta.listacircular.root = circulo.root;
 
     $('#path').val("/");
     $('#carpetas').html(nario.getHTML("/"))
 
-    localStorage.setItem("arbolavl", JSON.stringify(avlTree));
+    localStorage.setItem("arbolavl", JSON.stringify(JSON.decycle(avlTree)));
+
+}
+
+function obtenerFecha() {
+    const fechaActual = new Date();
+    const dia = fechaActual.getDate().toString().padStart(2, "0");
+    const mes = (fechaActual.getMonth() + 1).toString().padStart(2, "0");
+    const anio = fechaActual.getFullYear();
+    return `${dia}/${mes}/${anio}`;
+}
+
+function obtenerHora() {
+    const horaActual = new Date();
+    const hora = horaActual.getHours().toString().padStart(2, "0");
+    const minutos = horaActual.getMinutes().toString().padStart(2, "0");
+    const segundos = horaActual.getSeconds().toString().padStart(2, "0");
+    return `${hora}:${minutos}:${segundos}`;
 
 }

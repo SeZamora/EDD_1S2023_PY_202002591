@@ -16,7 +16,7 @@
             <div class="col-4">
                 <h5>Subir estudiantes</h5>
                 <hr>
-                <form class="form" onsubmit="loadStudentsForm(event)">
+                <form class="form" onsubmit="cargarEstudiante(event)">
                     <input type="file" id="inputFile" name="inputFile" class="form-control" placeholder="Pos. X">
                     <div class="form-group mt-4">
                         <button type="submit" class="boton">Cargar Alumnos</button>
@@ -84,7 +84,11 @@
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" 
     crossorigin="anonymous"></script>
      <!-- Importar Estructuras -->
+     <script src="estructura/lib/cycle.js"></script>
      <script src="estructura/avl-tree.js"></script>
+
+     <script src="estructura/circular-list.js"></script>
+
      <script src="estructura/nari-tree.js"></script>
      <!-- Importar Archivo Principal -->
      <script src="admin.js"></script>

@@ -6,6 +6,7 @@ class Tnode{
         this.files = [];
         this.children = []; // TODOS LOS NODOS HIJOS
         this.id = null; // PARA GENERAR LA GRÁFICA
+        
     }
 }
 
@@ -18,17 +19,28 @@ class NarioTree{
     }
 
     insert(folderName, fatherPath){ 
-        console.log(this.size);
         let newNode =  new Tnode(folderName);
         let fatherNode = this.getFolder(fatherPath);
         if(fatherNode){
-            this.size += 1;
-            newNode.id = this.size;
+            // Verificar si ya existe un hijo con el mismo nombre
+            let existingChild = fatherNode.children.find(child => child.folderName === folderName);
+            if (existingChild) {
+                let newName = folderName + " (copia)";
+                let i = 1;
+                // Verificar si ya existe un hijo con el nombre modificado
+                while (fatherNode.children.find(child => child.folderName === newName)) {
+                    i++;
+                    newName = folderName + ` (copia ${i})`;
+                }
+                newNode.folderName = newName;
+            }
+            newNode.id = ++this.size;
             fatherNode.children.push(newNode);
-        }else{
+        } else {
             console.log("Ruta no existe");
         }
     }
+    
 
 
     getFolder(path){
@@ -83,7 +95,7 @@ class NarioTree{
                         <p class="h6 text-center">${child.folderName}</p>
                     </div>`
         })
-        // console.log(node.files)
+        console.log(node.files)
         node.files.map(file => {
             if(file.type === 'text/plain'){
                 let archivo = new Blob([file.content], file.type);

@@ -28,18 +28,10 @@
                 </form>
                 
                 <button onclick="deleteCarpeta()" class="boton mt-4">Eliminar Carpeta</button>
-                <h5 class="pt-4">Nuevo Archivo</h5>
-                <hr>
-                <form class="form" onsubmit="subirArchivo(event)">
-                    <input type="text" id="fileName" name="fileName" class="form-control mb-4" placeholder="Nombre de Archivos"/>
-                    <input type="file" id="file" name="file" class="form-control" accept="application/pdf, .txt, image/*">
-                    <div class="form-group mt-4">
-                        <button type="submit" class="btn boton w-100">Subir Archivo</button>
-                    </div>
-                </form>
                 <h5 class="pt-4">Reportes</h5>
                 <hr>
                 <a onclick="showTreeGraph()" class="btn boton w-100 mt-3">Gráfica de Árbol</a>
+                <a onclick="ShowBitacora()" class="btn boton w-100 mt-3">Gráfica bitacora</a>
                 <input type="buttom" class="boton mt-4" id="iniciar" onclick="volver()" value="Regresar"> </button>
                 
             </div>
@@ -70,6 +62,11 @@
             <hr>
             <img id="graph">
         </div>
+        <div class="ROW">
+            <h3>Bitacora</h3>
+            <hr>
+            <img id="bitacora">
+        </div>
         
     </div>    
 
@@ -90,8 +87,10 @@
     integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" 
     crossorigin="anonymous"></script>
      <!-- Importar Estructuras -->
+     <script src="estructura/lib/cycle.js"></script>
      <script src="estructura/avl-tree.js"></script>
      <script src="estructura/nari-tree.js"></script>
+     <script src="estructura/circular-list.js"></script>
      <!-- Importar Archivo Principal -->
      <script src="bienvenido.js"></script>
      <script src="admin.js"></script>

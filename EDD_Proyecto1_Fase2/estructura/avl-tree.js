@@ -1,12 +1,13 @@
 
 
 class AvlNode{
-    constructor(item, arbol){
+    constructor(item, arbol,circular){
         this.item = item;
         this.left = null;
         this.right = null;
         this.height = 0;
         this.arbolnario = arbol;
+        this.listacircular = circular;
     }
 }
 
@@ -34,7 +35,8 @@ class AvlTree{
     #insertRecursive(item, node){
         if(node == null){
             let arbolnario = new NarioTree();
-            node = new AvlNode(item, arbolnario);
+            let circular = new ListaCircular();
+            node = new AvlNode(item, arbolnario, circular);
             
         }else if(item.carnet < node.item.carnet){
             node.left = this.#insertRecursive(item, node.left);
