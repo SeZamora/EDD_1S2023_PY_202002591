@@ -1,13 +1,11 @@
 
-
 class AvlNode{
-    constructor(item, arbol,circular){
+    constructor(item, arbol){
         this.item = item;
         this.left = null;
         this.right = null;
         this.height = 0;
         this.arbolnario = arbol;
-        this.listacircular = circular;
     }
 }
 
@@ -15,7 +13,11 @@ class AvlNode{
 let = nodes = "";
 let = connections = "";
 
+
 class AvlTree{
+
+    
+
     constructor(){
         this.root = null;
     }
@@ -43,8 +45,7 @@ class AvlTree{
     #insertRecursive(item, node){
         if(node == null){
             let arbolnario = new NarioTree();
-            let circular = new ListaCircular();
-            var node12 = new AvlNode(item, arbolnario, circular);
+            var node12 = new AvlNode(item, arbolnario);
             return node12;
             
         }
@@ -150,72 +151,28 @@ class AvlTree{
     }
     
     inOrder(){
-        let html = this.#inOrderRecursive(this.root);
-        return html;
+        console.log("InOrder");
+        const tablaH = [];
+   
+       
+        this.#inOrderRecursive(this.root, tablaH);
+        return tablaH;
+        
     }
-    #inOrderRecursive(current){
-        console.log(current);
-        let row = "";
+    #inOrderRecursive(current, tablaH){
+    
         if(current.left != null){
-            row += this.#inOrderRecursive(current.left);
+            this.#inOrderRecursive(current.left, tablaH);
         }
-        row +=`
-            <tr>
-                <th>${current.item.carnet}</th>
-                <td>${current.item.nombre}</td>
-                <td>${current.item.password}</td>
-            </tr>
-        `;
+        tablaH.push({ carnet: current.item.carnet, nombre: current.item.nombre, password: current.item.password });
+        
         if(current.right != null){
-            row += this.#inOrderRecursive(current.right);
+            this.#inOrderRecursive(current.right, tablaH);
         }
         
-        return row;
     }
 
-    preOrder(){
-        let html = this.#preOrderRecursive(this.root);
-        return html;
-    }
-    #preOrderRecursive(current){
-        let row = "";
-        row +=`
-            <tr>
-                <th>${current.item.carnet}</th>
-                <td>${current.item.nombre}</td>
-                <td>${current.item.password}</td>
-            </tr>
-        `;
-        if(current.left != null){
-            row += this.#inOrderRecursive(current.left);
-        }
-        if(current.right != null){
-            row += this.#inOrderRecursive(current.right);
-        }
-        return row;
-    }
-
-    postOrder(){
-        let html = this.#postOrderRecursive(this.root);
-        return html;
-    }
-    #postOrderRecursive(current){
-        let row = "";
-        if(current.left != null){
-            row += this.#inOrderRecursive(current.left);
-        }
-        if(current.right != null){
-            row += this.#inOrderRecursive(current.right);
-        }
-        row +=`
-            <tr>
-                <th>${current.item.carnet}</th>
-                <td>${current.item.nombre}</td>
-                <td>${current.item.password}</td>
-            </tr>
-        `;
-        return row;
-    }
+   
 
     search(carnet, password){
         let current = this.root;
