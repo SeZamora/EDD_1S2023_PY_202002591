@@ -143,25 +143,33 @@ class HashTable{
     }
 
     // MÉTODO BUSCAR ELEMENTO
-search(carnet, password){
+    search(carnet, password){
     console.log("BUSCANDO...");
+   
     // OBTENER EL ÍNDICE DE LA FÓRMULA 
     // FÓRMULA: (SUMA ASCII's DEL CARNET) % CAPACIDAD ACTUAL 
     let indice = this.calcularIndice(carnet);
     // VERIFICAR QUE EL ÍNDICE NO SEA MAYOR QUE LA CAPACIDAD
     if(indice < this.capacidad){
+        console.log(this.table[indice].carnet);
+       
         // VERIFICAR SI EN LA POSICIÓN DEL ARRAY HAY UN NODO CON EL CARNET BUSCADO
+     
         if(this.table[indice] != null && this.table[indice].carnet === carnet){
+           
             // VERIFICAR SI LA CONTRASEÑA INGRESADA COINCIDE CON LA CONTRASEÑA DEL NODO
             if(this.table[indice].password === password){
                 // SI COINCIDEN, RETORNAR EL NOMBRE DEL NODO
                 return this.table[indice];
             }
         }
+        
         // SI NO COINCIDEN LAS CONTRASEÑAS O EL CARNET NO ESTÁ EN LA POSICIÓN DEL ARRAY, BUSCAR EN LAS POSICIONES SIGUIENTES
         let contador = 1;
         let siguienteIndice = this.recalcularIndice(carnet, contador);
         while(this.table[siguienteIndice] != null && this.table[siguienteIndice].carnet !== carnet){
+       
+          
             contador++;
             siguienteIndice = this.recalcularIndice(carnet, contador);
         }
@@ -171,7 +179,7 @@ search(carnet, password){
     }
     // SI NO SE ENCONTRÓ EL NODO CON EL CARNET Y LA CONTRASEÑA CORRESPONDIENTES, RETORNAR UN MENSAJE DE ERROR
     return null;
-}
+    }
 
     imprimirTabla() {
         let html = "";
@@ -189,6 +197,18 @@ search(carnet, password){
             
         }
         return html;
+    }
+
+    getMatrix() {
+        let matriz = [];
+        for(let i = 0; i < this.capacidad; i++) {
+            if (this.table[i] != null){
+            matriz.push({carnet: this.table[i].carnet, nombre: this.table[i].nombre, password: this.table[i].password});
+            } 
+          
+        
+        }
+        return matriz;
     }
 
    

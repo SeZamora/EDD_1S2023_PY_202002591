@@ -49,11 +49,25 @@
                 </div>
             </div>
         </div>
-        <div class="container mt-5">
-            <h1>Reporte de Árbol AVL</h1>
-            <hr>
-            <img id="graph">
+        <div class="mt-5">
+            <h3 class="text-center">
+                Reporte de Bloques para el Admin
+                <button class="btn btn-warning" onclick="getBlock(0)"> Mostrar Nodo Inicial</button>
+            </h3>
+            <hr/>
+            <div class="row">
+                <div class="col-2">
+                    <button class="btn btn-danger w-100" onclick="getBlock(-1)"> << Anterior</button>
+                </div>
+                <div class="col-8" id="show-block">
+
+                </div>
+                <div class="col-2">
+                    <button class="btn btn-danger w-100" onclick="getBlock(1)"> Siguiente >></button>
+                </div>
+            </div>
         </div>
+    </div>
 
     </div>
     <!-- Bootstrap -->
@@ -79,6 +93,8 @@
      <script src="estructura/lib/cycle.js"></script>
      <script src="estructura/avl-tree.js"></script>
      <script src="estructura/tablaHash.js"></script>
+     <script src="estructura/blockchain.js"></script>
+     <script src="cliente.js"></script>
 
 
      <script src="estructura/nari-tree.js"></script>

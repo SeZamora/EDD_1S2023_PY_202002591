@@ -113,9 +113,8 @@ function buscar(){
     var carnet
     var carnetInt
     var pass
-    // Obtener referencias a los elementos de la página
-    let temp = localStorage.getItem("arbolavl");
-    avlTree.root = JSON.parse(temp).root;
+    
+    
     
     let temp2 = localStorage.getItem("hashTable");
     hashTable.table = JSON.parse(temp2).table;
@@ -123,7 +122,7 @@ function buscar(){
     hashTable.espaciosUsados = JSON.parse(temp2).espaciosUsados;
     console.log(hashTable);
 
-    alert("entre a buscar");
+   
     carnet = document.getElementById('carnet');
     carnetInt = parseInt(carnet.value);
     pass = document.getElementById('contraseña');
@@ -135,6 +134,7 @@ function buscar(){
     console.log(carnetInt);
     let compr = hashTable.search(carnetInt, password);
     console.log(compr);
+
     if (compr != null) {
         window.location.href = "estudiante.html?carnet=" + compr.carnet ; 
     } else {
@@ -158,9 +158,13 @@ function crearCarpeta(e){
     let carnetInt = localStorage.getItem("carnet");
     let pass = localStorage.getItem("pass");
     let temp = localStorage.getItem("arbolavl");
+
+    
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
+    nario.size = resulta.arbolnario.size;
+    nario.height = resulta.arbolnario.height;
   
 
     let folderName =  $('#folderName').val();
@@ -173,6 +177,8 @@ function crearCarpeta(e){
     
 
     resulta.arbolnario.root = nario.root;
+    resulta.arbolnario.size = nario.size;
+    resulta.arbolnario.height = nario.height;
 
 
     localStorage.setItem("arbolavl", JSON.stringify(JSON.decycle(avlTree)));
@@ -189,6 +195,8 @@ function cambiarDirectorio(){
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
+    nario.size = resulta.arbolnario.size;
+    nario.height = resulta.arbolnario.height;
 
     $('#path').val(direccion);
     $('#carpetas').html(nario.getHTML(direccion))
@@ -200,6 +208,8 @@ function entrarCarpeta(folderName){
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
+    nario.size = resulta.arbolnario.size;
+    nario.height = resulta.arbolnario.height;
     
     let path = $('#path').val();
     let curretPath = path == '/'? path + folderName : path + "/"+ folderName;
@@ -228,6 +238,8 @@ function showTreeGraph(){
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
+    nario.size = resulta.arbolnario.size;
+    nario.height = resulta.arbolnario.height;
 
     let url = 'https://quickchart.io/graphviz?graph=';
     let body = `digraph G { ${nario.graph()} }`
@@ -302,6 +314,8 @@ function deleteCarpeta(){
     avlTree.root = JSON.parse(temp).root;
     const resulta = avlTree.search(carnetInt, pass);
     nario.root = resulta.arbolnario.root;
+    nario.size = resulta.arbolnario.size;
+    nario.height = resulta.arbolnario.height;
   
 
     nario.eliminarDirectorio(direccion);
@@ -311,6 +325,8 @@ function deleteCarpeta(){
 
 
     resulta.arbolnario.root = nario.root;
+    resulta.arbolnario.size = nario.size;
+    resulta.arbolnario.height = nario.height;
 
 
     $('#path').val("/");
@@ -319,4 +335,11 @@ function deleteCarpeta(){
     localStorage.setItem("arbolavl", JSON.stringify(JSON.decycle(avlTree)));
 
 }
+
+// Blockchain
+
+function MoverChat(){
+    location.href = "chat.html";
+}
+
 
