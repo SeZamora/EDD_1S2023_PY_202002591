@@ -7,3 +7,6 @@
 |------------- | -------------|
 |Jorge Sebastian Zamora Polanco  | 202002591|
 
+[Manual tecnico](./ManualTecnico.md)
+
+[Manueal de usuario](./ManualUsuario.md)
